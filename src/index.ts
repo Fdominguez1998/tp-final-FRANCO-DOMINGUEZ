@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import pool from "./database/mysql";
 import usersRoutes from "./routes/users.routes";
+import duenosRoutes from "./routes/duenos.routes";
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/users", usersRoutes);
+app.use("/duenos", duenosRoutes);
 
 const PORT = process.env.PORT || 3000;
 
