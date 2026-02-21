@@ -4,6 +4,7 @@ import pool from "./database/mysql";
 import usersRoutes from "./routes/users.routes";
 import duenosRoutes from "./routes/duenos.routes";
 import mascotasRoutes from "./routes/mascotas.routes";
+import historialRoutes from "./routes/historial.routes";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/users", usersRoutes);
 app.use("/duenos", duenosRoutes);
 app.use("/mascotas", mascotasRoutes);
+app.use("/historial", historialRoutes);
 
 const PORT = process.env.PORT || 3000;
 
