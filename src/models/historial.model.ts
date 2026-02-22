@@ -49,3 +49,40 @@ export const getHistorialByMascota = async (mascota_id: number) => {
 
   return rows;
 };
+
+export const getHistorialById = async (id: number) => {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    `SELECT * FROM historial_clinico WHERE id = ?`,
+    [id],
+  );
+
+  return rows[0];
+};
+
+export const updateHistorial = async (
+  id: number,
+  historial: Partial<HistorialClinico>,
+) => {
+  const [result] = await pool.query<ResultSetHeader>(
+    `UPDATE historial_clinico SET mascota_id = ?, veterinario_id = ?, descripcion = ?, tratamiento = ?, fecha_consulta = ? WHERE id = ?`,
+    [
+      historial.mascota_id,
+      historial.veterinario_id,
+      historial.descripcion,
+      historial.tratamiento,
+      historial.fecha_consulta,
+      id,
+    ],
+  );
+
+  return result.affectedRows > 0;
+};
+
+export const deleteHistorial = async (id: number) => {
+  const [result] = await pool.query<ResultSetHeader>(
+    `DELETE FROM historial_clinico WHERE id = ?`,
+    [id],
+  );
+
+  return result.affectedRows > 0;
+};

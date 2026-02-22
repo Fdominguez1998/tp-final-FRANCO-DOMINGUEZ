@@ -3,10 +3,12 @@ import {
   createHistorial,
   getAllHistorial,
   getHistorialByMascota,
+  updateHistorial,
+  deleteHistorial,
 } from "../controllers/historial.controller";
 
-import { validateFields } from "../middlewares/validate.middleware"; // ← NUEVO
-import { createHistorialValidator } from "../validators/historial.validator"; // ← NUEVO
+import { validateFields } from "../middlewares/validate.middleware";
+import { createHistorialValidator } from "../validators/historial.validator";
 import {
   authenticateToken,
   authorizeRoles,
@@ -17,8 +19,10 @@ const router = Router();
 router.use(authenticateToken);
 router.use(authorizeRoles("admin", "veterinario"));
 
-router.post("/", createHistorialValidator, validateFields, createHistorial); // ← MODIFICADO
+router.post("/", createHistorialValidator, validateFields, createHistorial);
 router.get("/", getAllHistorial);
 router.get("/mascota/:mascota_id", getHistorialByMascota);
+router.patch("/:id", createHistorialValidator, validateFields, updateHistorial);
+router.delete("/:id", deleteHistorial);
 
 export default router;

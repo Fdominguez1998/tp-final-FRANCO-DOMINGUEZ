@@ -42,3 +42,63 @@ export const getDuenoById = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: "Error obteniendo dueño" });
   }
 };
+
+export const updateDueno = async (req: AuthRequest, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const dueno = await duenoService.getDuenoById(id);
+
+    if (!dueno) {
+      return res.status(404).json({ message: "Dueño no encontrado" });
+    }
+
+    if (dueno.created_by !== req.user.id && req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "No autorizado para actualizar este dueño" });
+    }
+
+    const { nombre, telefono, email, direccion } = req.body;
+    const updated = await duenoService.updateDueno(id, {
+      nombre,
+      telefono,
+      email,
+      direccion,
+    });
+
+    if (!updated) {
+      return res.status(400).json({ message: "Error actualizando dueño" });
+    }
+
+    res.json({ message: "Dueño actualizado correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Error actualizando dueño" });
+  }
+};
+
+export const deleteDueno = async (req: AuthRequest, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const dueno = await duenoService.getDuenoById(id);
+
+    if (!dueno) {
+      return res.status(404).json({ message: "Dueño no encontrado" });
+    }
+
+    if (dueno.created_by !== req.user.id && req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "No autorizado para eliminar este dueño" });
+    }
+
+    const deleted = await duenoService.deleteDueno(id);
+
+    if (!deleted) {
+      return res.status(400).json({ message: "Error eliminando dueño" });
+    }
+
+    res.json({ message: "Dueño eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Error eliminando dueño" });
+  }
+};

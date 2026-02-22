@@ -43,3 +43,64 @@ export const getMascotaById = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: "Error obteniendo mascota" });
   }
 };
+
+export const updateMascota = async (req: AuthRequest, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const mascota = await mascotaService.getMascotaById(id);
+
+    if (!mascota) {
+      return res.status(404).json({ message: "Mascota no encontrada" });
+    }
+
+    if (mascota.created_by !== req.user.id && req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "No autorizado para actualizar esta mascota" });
+    }
+
+    const { nombre, especie, raza, edad, dueno_id } = req.body;
+    const updated = await mascotaService.updateMascota(id, {
+      nombre,
+      especie,
+      raza,
+      edad,
+      dueno_id,
+    });
+
+    if (!updated) {
+      return res.status(400).json({ message: "Error actualizando mascota" });
+    }
+
+    res.json({ message: "Mascota actualizada correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Error actualizando mascota" });
+  }
+};
+
+export const deleteMascota = async (req: AuthRequest, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const mascota = await mascotaService.getMascotaById(id);
+
+    if (!mascota) {
+      return res.status(404).json({ message: "Mascota no encontrada" });
+    }
+
+    if (mascota.created_by !== req.user.id && req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "No autorizado para eliminar esta mascota" });
+    }
+
+    const deleted = await mascotaService.deleteMascota(id);
+
+    if (!deleted) {
+      return res.status(400).json({ message: "Error eliminando mascota" });
+    }
+
+    res.json({ message: "Mascota eliminada correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Error eliminando mascota" });
+  }
+};

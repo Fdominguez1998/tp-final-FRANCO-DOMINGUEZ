@@ -12,3 +12,11 @@ export const getAllDuenos = async () => {
 export const getDuenoById = async (id: number) => {
   return await duenoModel.getDuenoById(id);
 };
+
+export const updateDueno = async (id: number, dueno: Partial<Dueno>) => {
+  return await duenoModel.updateDueno(id, dueno);
+};
+
+export const deleteDueno = async (id: number) => {
+  return await duenoModel.deleteDueno(id);
+};

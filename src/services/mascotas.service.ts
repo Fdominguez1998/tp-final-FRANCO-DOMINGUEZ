@@ -12,3 +12,11 @@ export const getAllMascotas = async () => {
 export const getMascotaById = async (id: number) => {
   return await mascotaModel.getMascotaById(id);
 };
+
+export const updateMascota = async (id: number, mascota: Partial<Mascota>) => {
+  return await mascotaModel.updateMascota(id, mascota);
+};
+
+export const deleteMascota = async (id: number) => {
+  return await mascotaModel.deleteMascota(id);
+};

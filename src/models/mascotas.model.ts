@@ -50,3 +50,28 @@ export const getMascotaById = async (id: number) => {
 
   return rows[0];
 };
+
+export const updateMascota = async (id: number, mascota: Partial<Mascota>) => {
+  const [result] = await pool.query<ResultSetHeader>(
+    `UPDATE mascotas SET nombre = ?, especie = ?, raza = ?, edad = ?, dueno_id = ? WHERE id = ?`,
+    [
+      mascota.nombre,
+      mascota.especie,
+      mascota.raza,
+      mascota.edad,
+      mascota.dueno_id,
+      id,
+    ],
+  );
+
+  return result.affectedRows > 0;
+};
+
+export const deleteMascota = async (id: number) => {
+  const [result] = await pool.query<ResultSetHeader>(
+    `DELETE FROM mascotas WHERE id = ?`,
+    [id],
+  );
+
+  return result.affectedRows > 0;
+};
