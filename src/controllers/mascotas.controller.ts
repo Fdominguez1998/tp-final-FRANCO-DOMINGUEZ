@@ -53,7 +53,11 @@ export const updateMascota = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Mascota no encontrada" });
     }
 
-    if (mascota.created_by !== req.user.id && req.user.role !== "admin") {
+    if (
+      req.user.role !== "admin" &&
+      req.user.role !== "veterinario" &&
+      mascota.created_by !== req.user.id
+    ) {
       return res
         .status(403)
         .json({ message: "No autorizado para actualizar esta mascota" });
@@ -87,7 +91,11 @@ export const deleteMascota = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Mascota no encontrada" });
     }
 
-    if (mascota.created_by !== req.user.id && req.user.role !== "admin") {
+    if (
+      req.user.role !== "admin" &&
+      req.user.role !== "veterinario" &&
+      mascota.created_by !== req.user.id
+    ) {
       return res
         .status(403)
         .json({ message: "No autorizado para eliminar esta mascota" });

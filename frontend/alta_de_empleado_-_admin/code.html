@@ -1,0 +1,622 @@
+<!doctype html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gestión de Usuarios - Patitas Felices</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style data-purpose="theme-variables">
+      :root {
+        --primary-color: #13eca4;
+        --secondary-color: #f8f9fa;
+        --text-dark: #2d3436;
+        --border-radius: 8px;
+        --font-family: "Inter", sans-serif;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background-color: #f4f7f6;
+        color: var(--text-dark);
+        margin: 0;
+        padding-top: 70px;
+      }
+    </style>
+    <style data-purpose="layout-and-styling">
+      .navbar {
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-bottom: 2px solid var(--primary-color);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--text-dark) !important;
+      }
+
+      .section-container {
+        background: #ffffff;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        border: 1px solid #edf2f7;
+      }
+
+      .section-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .table-title {
+        color: #3498db;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .form-control {
+        border-radius: var(--border-radius);
+        border: 1px solid #dcdde1;
+        padding: 0.6rem;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(19, 236, 164, 0.25);
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #000;
+        font-weight: 600;
+        border-radius: var(--border-radius);
+      }
+
+      .btn-primary:hover {
+        background-color: #0fd994;
+        border-color: #0fd994;
+        color: #000;
+      }
+
+      .table-container {
+        border: 1px solid #e1e8ed;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+      }
+
+      .table thead {
+        background-color: #f8f9fa;
+      }
+
+      .btn-action {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        margin-right: 4px;
+      }
+
+      .btn-edit {
+        background-color: #f39c12;
+        color: white;
+        border: none;
+      }
+      .btn-delete {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+      }
+
+      .text-primary {
+        color: #ec5b13 !important;
+      }
+
+      .form-control,
+      .form-select {
+        height: 38px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .badge-role {
+        padding: 0.35em 0.65em;
+        font-size: 0.85em;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="notifications"
+      class="position-fixed top-0 end-0 p-3"
+      style="z-index: 1080"
+    ></div>
+
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <div
+              class="bg-primary text-white p-2 rounded d-inline-flex align-items-center justify-content-center me-2"
+            >
+              <span class="material-symbols-outlined">pets</span>
+            </div>
+            Patitas<span class="text-primary">Felices</span>
+          </a>
+          <div class="ms-auto d-flex gap-2">
+            <button id="backToDashboardBtn" class="btn btn-outline-primary">
+              Volver al Dashboard
+            </button>
+            <button id="logoutBtn" class="btn btn-outline-secondary">
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container my-5">
+      <section class="section-container" data-purpose="users-management">
+        <h2 class="section-title">Gestión de Usuarios</h2>
+
+        <div class="row mb-4">
+          <div class="col-12">
+            <p class="text-muted mb-3">Crear nuevo usuario del sistema</p>
+            <form class="row g-3" id="usuarios-form">
+              <div class="col-md-2">
+                <input
+                  aria-label="Nombre"
+                  class="form-control"
+                  id="usuarios-nombre"
+                  placeholder="Nombre"
+                  type="text"
+                  required
+                />
+              </div>
+              <div class="col-md-2">
+                <input
+                  aria-label="Apellido"
+                  class="form-control"
+                  id="usuarios-apellido"
+                  placeholder="Apellido"
+                  type="text"
+                  required
+                />
+              </div>
+              <div class="col-md-3">
+                <input
+                  aria-label="Email"
+                  class="form-control"
+                  id="usuarios-email"
+                  placeholder="Correo Electrónico"
+                  type="email"
+                  required
+                />
+              </div>
+              <div class="col-md-2">
+                <input
+                  aria-label="Contraseña"
+                  class="form-control"
+                  id="usuarios-password"
+                  placeholder="Contraseña"
+                  type="password"
+                  required
+                />
+              </div>
+              <div class="col-md-2">
+                <select
+                  aria-label="Rol"
+                  class="form-select"
+                  id="usuarios-role"
+                  required
+                >
+                  <option selected disabled>Rol</option>
+                  <option value="admin">Admin</option>
+                  <option value="veterinario">Veterinario</option>
+                </select>
+              </div>
+              <div class="col-md-1 d-grid">
+                <button class="btn btn-primary" type="submit">Crear</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <h3 class="table-title">Lista de Usuarios del Sistema</h3>
+        <div class="table-container">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="usuarios-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-muted">
+      <div class="container border-top pt-3">
+        <p>© 2024 Patitas Felices - Panel de Administración</p>
+      </div>
+    </footer>
+
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUsuarioModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Usuario</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="edit-usuario-form">
+              <div class="mb-3">
+                <label for="edit-usuario-nombre" class="form-label"
+                  >Nombre</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="edit-usuario-nombre"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="edit-usuario-apellido" class="form-label"
+                  >Apellido</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="edit-usuario-apellido"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="edit-usuario-email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="edit-usuario-email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="edit-usuario-password" class="form-label"
+                  >Nueva Contraseña (opcional)</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="edit-usuario-password"
+                  placeholder="Dejar vacío para no cambiar"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="edit-usuario-role" class="form-label">Rol</label>
+                <select class="form-select" id="edit-usuario-role" required>
+                  <option value="admin">Admin</option>
+                  <option value="veterinario">Veterinario</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              form="edit-usuario-form"
+              class="btn btn-primary"
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirmar eliminación</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">¿Estás seguro de eliminar este usuario?</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const token = localStorage.getItem("token");
+      let pendingDelete = null;
+
+      function showNotice(message, type = "danger") {
+        const container = document.getElementById("notifications");
+        const notification = document.createElement("div");
+        notification.className = `alert alert-${type} alert-dismissible fade show shadow-sm`;
+        notification.role = "alert";
+        notification.innerHTML = `
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        container.appendChild(notification);
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.remove();
+          }
+        }, 3000);
+      }
+
+      async function apiRequest(method, endpoint, data = null) {
+        const options = {
+          method,
+          headers: { Authorization: "Bearer " + token },
+        };
+        if (data) {
+          options.headers["Content-Type"] = "application/json";
+          options.body = JSON.stringify(data);
+        }
+        return fetch(endpoint, options);
+      }
+
+      if (!token) {
+        window.location.href = "../index.html";
+      }
+
+      fetch("/api/auth/me", {
+        headers: { Authorization: "Bearer " + token },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.role !== "admin") {
+            showNotice("Acceso denegado: Solo administradores");
+            setTimeout(() => {
+              window.location.href = "../generated_screen_2/code.html";
+            }, 2000);
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          window.location.href = "../index.html";
+        });
+
+      document
+        .getElementById("backToDashboardBtn")
+        .addEventListener("click", () => {
+          window.location.href = "../generated_screen_2/code.html";
+        });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.href = "../index.html";
+      });
+
+      function getRoleBadge(role) {
+        const badges = {
+          admin: '<span class="badge bg-danger badge-role">Admin</span>',
+          veterinario:
+            '<span class="badge bg-primary badge-role">Veterinario</span>',
+          empleado:
+            '<span class="badge bg-secondary badge-role">Empleado</span>',
+        };
+        return (
+          badges[role] ||
+          '<span class="badge bg-secondary badge-role">' + role + "</span>"
+        );
+      }
+
+      async function loadUsuarios() {
+        try {
+          const response = await apiRequest("GET", "/api/users");
+          const usuarios = await response.json();
+
+          document.getElementById("usuarios-tbody").innerHTML = usuarios
+            .map(
+              (u) => `<tr>
+            <td>${u.id}</td>
+            <td>${u.nombre}</td>
+            <td>${u.apellido}</td>
+            <td>${u.email}</td>
+            <td>${getRoleBadge(u.role)}</td>
+            <td class="text-end">
+              <button class="btn btn-action btn-edit" data-id="${u.id}">Editar</button>
+              <button class="btn btn-action btn-delete" data-id="${u.id}">Eliminar</button>
+            </td>
+          </tr>`,
+            )
+            .join("");
+        } catch (error) {
+          showNotice("Error cargando usuarios");
+        }
+      }
+
+      loadUsuarios();
+
+      document
+        .getElementById("usuarios-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const nombre = document.getElementById("usuarios-nombre").value;
+          const apellido = document.getElementById("usuarios-apellido").value;
+          const email = document.getElementById("usuarios-email").value;
+          const password = document.getElementById("usuarios-password").value;
+          const role = document.getElementById("usuarios-role").value;
+
+          try {
+            const response = await apiRequest("POST", "/api/auth/register", {
+              nombre,
+              apellido,
+              email,
+              password,
+              role,
+            });
+
+            if (response.ok) {
+              loadUsuarios();
+              document.getElementById("usuarios-form").reset();
+              showNotice("Usuario creado correctamente", "success");
+            } else {
+              const data = await response.json().catch(() => ({}));
+              showNotice(data.message || "Error al crear usuario");
+            }
+          } catch (error) {
+            showNotice("Error de conexión");
+          }
+        });
+
+      document.addEventListener("click", async (e) => {
+        if (e.target.classList.contains("btn-edit")) {
+          const id = e.target.dataset.id;
+
+          try {
+            const response = await apiRequest("GET", `/api/users/${id}`);
+            const data = await response.json();
+
+            document.getElementById("edit-usuario-nombre").value = data.nombre;
+            document.getElementById("edit-usuario-apellido").value =
+              data.apellido;
+            document.getElementById("edit-usuario-email").value = data.email;
+            document.getElementById("edit-usuario-role").value = data.role;
+            document.getElementById("edit-usuario-password").value = "";
+            document.getElementById("edit-usuario-form").dataset.id = id;
+
+            new bootstrap.Modal(
+              document.getElementById("editUsuarioModal"),
+            ).show();
+          } catch (error) {
+            showNotice("Error al cargar datos del usuario");
+          }
+        } else if (e.target.classList.contains("btn-delete")) {
+          pendingDelete = e.target.dataset.id;
+          new bootstrap.Modal(
+            document.getElementById("deleteConfirmModal"),
+          ).show();
+        }
+      });
+
+      document
+        .getElementById("edit-usuario-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const id = e.target.dataset.id;
+          const data = {
+            nombre: document.getElementById("edit-usuario-nombre").value,
+            apellido: document.getElementById("edit-usuario-apellido").value,
+            email: document.getElementById("edit-usuario-email").value,
+            role: document.getElementById("edit-usuario-role").value,
+          };
+
+          const password = document.getElementById(
+            "edit-usuario-password",
+          ).value;
+          if (password) {
+            data.password = password;
+          }
+
+          try {
+            const response = await apiRequest(
+              "PATCH",
+              `/api/users/${id}`,
+              data,
+            );
+            if (response.ok) {
+              loadUsuarios();
+              bootstrap.Modal.getInstance(
+                document.getElementById("editUsuarioModal"),
+              ).hide();
+              showNotice("Usuario actualizado correctamente", "success");
+            } else {
+              showNotice("Error al actualizar usuario");
+            }
+          } catch (error) {
+            showNotice("Error de conexión");
+          }
+        });
+
+      document
+        .getElementById("confirmDeleteBtn")
+        .addEventListener("click", async () => {
+          if (!pendingDelete) return;
+
+          try {
+            const response = await apiRequest(
+              "DELETE",
+              `/api/users/${pendingDelete}`,
+            );
+            if (response.ok) {
+              loadUsuarios();
+              showNotice("Usuario eliminado correctamente", "success");
+            } else {
+              const data = await response.json().catch(() => ({}));
+              showNotice(
+                data.message || "Error al eliminar usuario",
+                "warning",
+              );
+            }
+          } catch (error) {
+            showNotice("Error de conexión");
+          } finally {
+            pendingDelete = null;
+            bootstrap.Modal.getInstance(
+              document.getElementById("deleteConfirmModal"),
+            ).hide();
+          }
+        });
+    </script>
+  </body>
+</html>

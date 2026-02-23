@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { getUsers } from "../controllers/users.controller";
+import {
+  getUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
+} from "../controllers/users.controller";
 import {
   authenticateToken,
   authorizeRoles,
@@ -7,7 +12,12 @@ import {
 
 const router = Router();
 
-// SOLO ADMIN puede ver todos los usuarios
-router.get("/", authenticateToken, authorizeRoles("admin"), getUsers);
+router.use(authenticateToken);
+router.use(authorizeRoles("admin"));
+
+router.get("/", getUsers);
+router.get("/:id", getUserById);
+router.patch("/:id", updateUser);
+router.delete("/:id", deleteUser);
 
 export default router;

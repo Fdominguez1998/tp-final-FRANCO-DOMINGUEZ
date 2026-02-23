@@ -45,3 +45,35 @@ export async function loginUser(email: string, password: string) {
     token,
   };
 }
+
+export async function getUserById(id: number): Promise<User | null> {
+  return await userModel.getUserById(id);
+}
+
+export async function updateUser(
+  id: number,
+  data: {
+    nombre?: string;
+    apellido?: string;
+    email?: string;
+    password?: string;
+    role?: string;
+  },
+): Promise<void> {
+  if (data.password) {
+    data.password = await bcrypt.hash(data.password, 10);
+  }
+  await userModel.updateUser(id, data);
+}
+
+export async function deleteUser(id: number): Promise<void> {
+  const check = await userModel.checkUserHasRelatedRecords(id);
+
+  if (check.hasRecords) {
+    throw new Error(
+      `No se puede eliminar el usuario porque tiene registros relacionados: ${check.details.join(", ")}`,
+    );
+  }
+
+  await userModel.deleteUser(id);
+}

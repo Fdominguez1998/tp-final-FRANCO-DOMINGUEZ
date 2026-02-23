@@ -44,6 +44,22 @@ export const getHistorialByMascota = async (
   }
 };
 
+export const getHistorialById = async (req: AuthRequest, res: Response) => {
+  try {
+    const historial = await historialService.getHistorialById(
+      Number(req.params.id),
+    );
+
+    if (!historial) {
+      return res.status(404).json({ message: "Historial no encontrado" });
+    }
+
+    res.json(historial);
+  } catch (error) {
+    res.status(500).json({ message: "Error obteniendo historial" });
+  }
+};
+
 export const updateHistorial = async (req: AuthRequest, res: Response) => {
   try {
     const id = Number(req.params.id);
@@ -53,7 +69,11 @@ export const updateHistorial = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Historial no encontrado" });
     }
 
-    if (historial.veterinario_id !== req.user.id && req.user.role !== "admin") {
+    if (
+      req.user.role !== "admin" &&
+      req.user.role !== "veterinario" &&
+      historial.veterinario_id !== req.user.id
+    ) {
       return res
         .status(403)
         .json({ message: "No autorizado para actualizar este historial" });
@@ -87,7 +107,11 @@ export const deleteHistorial = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Historial no encontrado" });
     }
 
-    if (historial.veterinario_id !== req.user.id && req.user.role !== "admin") {
+    if (
+      req.user.role !== "admin" &&
+      req.user.role !== "veterinario" &&
+      historial.veterinario_id !== req.user.id
+    ) {
       return res
         .status(403)
         .json({ message: "No autorizado para eliminar este historial" });

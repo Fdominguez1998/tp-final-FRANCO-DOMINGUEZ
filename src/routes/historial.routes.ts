@@ -3,6 +3,7 @@ import {
   createHistorial,
   getAllHistorial,
   getHistorialByMascota,
+  getHistorialById,
   updateHistorial,
   deleteHistorial,
 } from "../controllers/historial.controller";
@@ -21,6 +22,7 @@ router.use(authorizeRoles("admin", "veterinario"));
 
 router.post("/", createHistorialValidator, validateFields, createHistorial);
 router.get("/", getAllHistorial);
+router.get("/:id", getHistorialById);
 router.get("/mascota/:mascota_id", getHistorialByMascota);
 router.patch("/:id", createHistorialValidator, validateFields, updateHistorial);
 router.delete("/:id", deleteHistorial);

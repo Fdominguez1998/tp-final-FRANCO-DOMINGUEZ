@@ -52,7 +52,11 @@ export const updateDueno = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Dueño no encontrado" });
     }
 
-    if (dueno.created_by !== req.user.id && req.user.role !== "admin") {
+    if (
+      req.user.role !== "admin" &&
+      req.user.role !== "veterinario" &&
+      dueno.created_by !== req.user.id
+    ) {
       return res
         .status(403)
         .json({ message: "No autorizado para actualizar este dueño" });
@@ -85,7 +89,11 @@ export const deleteDueno = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Dueño no encontrado" });
     }
 
-    if (dueno.created_by !== req.user.id && req.user.role !== "admin") {
+    if (
+      req.user.role !== "admin" &&
+      req.user.role !== "veterinario" &&
+      dueno.created_by !== req.user.id
+    ) {
       return res
         .status(403)
         .json({ message: "No autorizado para eliminar este dueño" });
