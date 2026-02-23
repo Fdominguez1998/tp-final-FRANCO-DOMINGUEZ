@@ -19,128 +19,15 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
       rel="stylesheet"
     />
-    <style data-purpose="theme-variables">
-      :root {
-        --primary-color: #13eca4;
-        --secondary-color: #f8f9fa;
-        --text-dark: #2d3436;
-        --border-radius: 8px;
-        --font-family: "Inter", sans-serif;
-      }
-
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
       body {
-        font-family: var(--font-family);
-        background-color: #f4f7f6;
-        color: var(--text-dark);
-        margin: 0;
-        padding-top: 70px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
-    </style>
-    <style data-purpose="layout-and-styling">
-      .navbar {
-        background-color: #ffffff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        border-bottom: 2px solid var(--primary-color);
-      }
-
-      .navbar-brand {
-        font-weight: 700;
-        color: var(--text-dark) !important;
-      }
-
-      .section-container {
-        background: #ffffff;
-        border-radius: var(--border-radius);
-        padding: 2rem;
-        margin-bottom: 3rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-        border: 1px solid #edf2f7;
-      }
-
-      .section-title {
-        color: var(--primary-color);
-        font-weight: 700;
-        border-bottom: 2px solid #f0f0f0;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .table-title {
-        color: #3498db;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .form-control {
-        border-radius: var(--border-radius);
-        border: 1px solid #dcdde1;
-        padding: 0.6rem;
-      }
-
-      .form-control:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(19, 236, 164, 0.25);
-      }
-
-      .btn-primary {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-        color: #000;
-        font-weight: 600;
-        border-radius: var(--border-radius);
-      }
-
-      .btn-primary:hover {
-        background-color: #0fd994;
-        border-color: #0fd994;
-        color: #000;
-      }
-
-      .table-container {
-        border: 1px solid #e1e8ed;
-        border-radius: var(--border-radius);
-        overflow: hidden;
-      }
-
-      .table thead {
-        background-color: #f8f9fa;
-      }
-
-      .btn-action {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.8rem;
-        border-radius: 4px;
-        margin-right: 4px;
-      }
-
-      .btn-edit {
-        background-color: #f39c12;
-        color: white;
-        border: none;
-      }
-      .btn-delete {
-        background-color: #e74c3c;
-        color: white;
-        border: none;
-      }
-
-      .text-primary {
-        color: #ec5b13 !important;
-      }
-
-      .form-control,
-      .form-select {
-        height: 38px;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .badge-role {
-        padding: 0.35em 0.65em;
-        font-size: 0.85em;
-        font-weight: 600;
+      main {
+        flex: 1;
       }
     </style>
   </head>
@@ -181,13 +68,13 @@
         <div class="row mb-4">
           <div class="col-12">
             <p class="text-muted mb-3">Crear nuevo usuario del sistema</p>
-            <form class="row g-3" id="usuarios-form">
+            <form class="row g-3" id="usuarios-form" novalidate>
               <div class="col-md-2">
                 <input
                   aria-label="Nombre"
                   class="form-control"
                   id="usuarios-nombre"
-                  placeholder="Nombre"
+                  placeholder="Nombre *"
                   type="text"
                   required
                 />
@@ -197,7 +84,7 @@
                   aria-label="Apellido"
                   class="form-control"
                   id="usuarios-apellido"
-                  placeholder="Apellido"
+                  placeholder="Apellido *"
                   type="text"
                   required
                 />
@@ -207,7 +94,7 @@
                   aria-label="Email"
                   class="form-control"
                   id="usuarios-email"
-                  placeholder="Correo Electrónico"
+                  placeholder="Correo Electrónico *"
                   type="email"
                   required
                 />
@@ -217,7 +104,7 @@
                   aria-label="Contraseña"
                   class="form-control"
                   id="usuarios-password"
-                  placeholder="Contraseña"
+                  placeholder="Contraseña *"
                   type="password"
                   required
                 />
@@ -229,7 +116,7 @@
                   id="usuarios-role"
                   required
                 >
-                  <option selected disabled>Rol</option>
+                  <option selected disabled>Rol *</option>
                   <option value="admin">Admin</option>
                   <option value="veterinario">Veterinario</option>
                 </select>
@@ -262,7 +149,7 @@
 
     <footer class="text-center py-4 text-muted">
       <div class="container border-top pt-3">
-        <p>© 2024 Patitas Felices - Panel de Administración</p>
+        <p>© 2026 Patitas Felices - Panel de Administración</p>
       </div>
     </footer>
 
@@ -279,10 +166,10 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form id="edit-usuario-form">
+            <form id="edit-usuario-form" novalidate>
               <div class="mb-3">
                 <label for="edit-usuario-nombre" class="form-label"
-                  >Nombre</label
+                  >Nombre *</label
                 >
                 <input
                   type="text"
@@ -293,7 +180,7 @@
               </div>
               <div class="mb-3">
                 <label for="edit-usuario-apellido" class="form-label"
-                  >Apellido</label
+                  >Apellido *</label
                 >
                 <input
                   type="text"
@@ -303,7 +190,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="edit-usuario-email" class="form-label">Email</label>
+                <label for="edit-usuario-email" class="form-label"
+                  >Email *</label
+                >
                 <input
                   type="email"
                   class="form-control"
@@ -323,7 +212,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="edit-usuario-role" class="form-label">Rol</label>
+                <label for="edit-usuario-role" class="form-label">Rol *</label>
                 <select class="form-select" id="edit-usuario-role" required>
                   <option value="admin">Admin</option>
                   <option value="veterinario">Veterinario</option>
@@ -381,42 +270,11 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../utils/utils.js"></script>
     <script>
-      const token = localStorage.getItem("token");
       let pendingDelete = null;
 
-      function showNotice(message, type = "danger") {
-        const container = document.getElementById("notifications");
-        const notification = document.createElement("div");
-        notification.className = `alert alert-${type} alert-dismissible fade show shadow-sm`;
-        notification.role = "alert";
-        notification.innerHTML = `
-          ${message}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        container.appendChild(notification);
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.remove();
-          }
-        }, 3000);
-      }
-
-      async function apiRequest(method, endpoint, data = null) {
-        const options = {
-          method,
-          headers: { Authorization: "Bearer " + token },
-        };
-        if (data) {
-          options.headers["Content-Type"] = "application/json";
-          options.body = JSON.stringify(data);
-        }
-        return fetch(endpoint, options);
-      }
-
-      if (!token) {
-        window.location.href = "../index.html";
-      }
+      checkAuth();
 
       fetch("/api/auth/me", {
         headers: { Authorization: "Bearer " + token },
@@ -441,10 +299,7 @@
           window.location.href = "../dashboard-principal/code.html";
         });
 
-      document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.removeItem("token");
-        window.location.href = "../index.html";
-      });
+      setupLogout();
 
       function getRoleBadge(role) {
         const badges = {
@@ -491,6 +346,9 @@
         .getElementById("usuarios-form")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
+          if (!validateFormAndNotify(e.target)) {
+            return;
+          }
           const nombre = document.getElementById("usuarios-nombre").value;
           const apellido = document.getElementById("usuarios-apellido").value;
           const email = document.getElementById("usuarios-email").value;
@@ -511,8 +369,11 @@
               document.getElementById("usuarios-form").reset();
               showNotice("Usuario creado correctamente", "success");
             } else {
-              const data = await response.json().catch(() => ({}));
-              showNotice(data.message || "Error al crear usuario");
+              const message = await getErrorMessage(
+                response,
+                "Error al crear usuario",
+              );
+              showNotice(message);
             }
           } catch (error) {
             showNotice("Error de conexión");
@@ -553,6 +414,9 @@
         .getElementById("edit-usuario-form")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
+          if (!validateFormAndNotify(e.target)) {
+            return;
+          }
           const id = e.target.dataset.id;
           const data = {
             nombre: document.getElementById("edit-usuario-nombre").value,
@@ -581,7 +445,11 @@
               ).hide();
               showNotice("Usuario actualizado correctamente", "success");
             } else {
-              showNotice("Error al actualizar usuario");
+              const message = await getErrorMessage(
+                response,
+                "Error al actualizar usuario",
+              );
+              showNotice(message);
             }
           } catch (error) {
             showNotice("Error de conexión");
@@ -602,11 +470,11 @@
               loadUsuarios();
               showNotice("Usuario eliminado correctamente", "success");
             } else {
-              const data = await response.json().catch(() => ({}));
-              showNotice(
-                data.message || "Error al eliminar usuario",
-                "warning",
+              const message = await getErrorMessage(
+                response,
+                "Error al eliminar usuario",
               );
+              showNotice(message);
             }
           } catch (error) {
             showNotice("Error de conexión");

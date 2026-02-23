@@ -1,5 +1,5 @@
 import * as duenoModel from "../models/duenos.model";
-import { Dueno } from "../models/duenos.model";
+import { Dueno } from "../types/duenos.types";
 
 export const createDueno = async (dueno: Dueno) => {
   return await duenoModel.createDueno(dueno);

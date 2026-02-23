@@ -1,16 +1,6 @@
 import pool from "../database/mysql";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-
-export interface Mascota {
-  id?: number;
-  nombre: string;
-  especie: string;
-  raza?: string;
-  edad?: number;
-  dueno_id: number;
-  created_by: number;
-  created_at?: Date;
-}
+import { Mascota } from "../types/mascotas.types";
 
 export const createMascota = async (mascota: Mascota) => {
   const [result] = await pool.query<ResultSetHeader>(

@@ -10,6 +10,11 @@
     />
   </head>
   <body class="bg-light">
+    <div
+      id="notifications"
+      class="position-fixed top-0 end-0 p-3"
+      style="z-index: 1080"
+    ></div>
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -18,7 +23,7 @@
               <h2 class="text-center">Iniciar Sesión</h2>
             </div>
             <div class="card-body">
-              <form id="loginForm">
+              <form id="loginForm" novalidate>
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input
@@ -43,18 +48,21 @@
                   Iniciar Sesión
                 </button>
               </form>
-              <div id="message" class="mt-3"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <script src="utils/utils.js"></script>
     <script>
       document
         .getElementById("loginForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
+          if (!validateFormAndNotify(e.target)) {
+            return;
+          }
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
 
@@ -64,17 +72,19 @@
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ email, password }),
             });
-            const data = await response.json();
             if (response.ok) {
+              const data = await response.json();
               localStorage.setItem("token", data.token);
               window.location.href = "dashboard-principal/code.html";
             } else {
-              document.getElementById("message").innerHTML =
-                '<div class="alert alert-danger">' + data.message + "</div>";
+              const message = await getErrorMessage(
+                response,
+                "Credenciales inválidas",
+              );
+              showNotice(message);
             }
           } catch (error) {
-            document.getElementById("message").innerHTML =
-              '<div class="alert alert-danger">Error de conexión</div>';
+            showNotice("Error de conexión");
           }
         });
     </script>

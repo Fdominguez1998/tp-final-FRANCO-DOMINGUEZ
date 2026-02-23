@@ -1,15 +1,6 @@
 import pool from "../database/mysql";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-
-export interface Dueno {
-  id?: number;
-  nombre: string;
-  telefono?: string;
-  email?: string;
-  direccion?: string;
-  created_by: number;
-  created_at?: Date;
-}
+import { Dueno } from "../types/duenos.types";
 
 export const createDueno = async (dueno: Dueno) => {
   const [result] = await pool.query<ResultSetHeader>(

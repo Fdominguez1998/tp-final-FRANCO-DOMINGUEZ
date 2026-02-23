@@ -1,15 +1,6 @@
 import pool from "../database/mysql";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
-
-export interface HistorialClinico {
-  id?: number;
-  mascota_id: number;
-  veterinario_id: number;
-  descripcion: string;
-  tratamiento?: string;
-  fecha_consulta: string;
-  created_at?: Date;
-}
+import { HistorialClinico } from "../types/historial.types";
 
 export const createHistorial = async (historial: HistorialClinico) => {
   const [result] = await pool.query<ResultSetHeader>(

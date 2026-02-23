@@ -1,5 +1,5 @@
 import * as mascotaModel from "../models/mascotas.model";
-import { Mascota } from "../models/mascotas.model";
+import { Mascota } from "../types/mascotas.types";
 
 export const createMascota = async (mascota: Mascota) => {
   return await mascotaModel.createMascota(mascota);

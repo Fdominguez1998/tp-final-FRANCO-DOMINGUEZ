@@ -5,12 +5,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Patitas Felices - Gestión Veterinaria</title>
-    <!-- Load Bootstrap 5 for Grid and Components as requested -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Google Font: Inter -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -21,125 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
       rel="stylesheet"
     />
-    <style data-purpose="theme-variables">
-      :root {
-        --primary-color: #13eca4; /* Custom color from THEME_3 */
-        --secondary-color: #f8f9fa;
-        --text-dark: #2d3436;
-        --border-radius: 8px; /* ROUND_EIGHT from THEME_3 */
-        --font-family: "Inter", sans-serif;
-      }
-
-      body {
-        font-family: var(--font-family);
-        background-color: #f4f7f6;
-        color: var(--text-dark);
-        margin: 0;
-        padding-top: 70px; /* Space for fixed header */
-      }
-    </style>
-    <style data-purpose="layout-and-styling">
-      .navbar {
-        background-color: #ffffff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        border-bottom: 2px solid var(--primary-color);
-      }
-
-      .navbar-brand {
-        font-weight: 700;
-        color: var(--text-dark) !important;
-      }
-
-      .section-container {
-        background: #ffffff;
-        border-radius: var(--border-radius);
-        padding: 2rem;
-        margin-bottom: 3rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-        border: 1px solid #edf2f7;
-      }
-
-      .section-title {
-        color: var(--primary-color);
-        font-weight: 700;
-        border-bottom: 2px solid #f0f0f0;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .table-title {
-        color: #3498db; /* Blueish tone as per sketch colors */
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .form-control {
-        border-radius: var(--border-radius);
-        border: 1px solid #dcdde1;
-        padding: 0.6rem;
-      }
-
-      .form-control:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(19, 236, 164, 0.25);
-      }
-
-      .btn-primary {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-        color: #000;
-        font-weight: 600;
-        border-radius: var(--border-radius);
-      }
-
-      .btn-primary:hover {
-        background-color: #0fd994;
-        border-color: #0fd994;
-        color: #000;
-      }
-
-      .table-container {
-        border: 1px solid #e1e8ed;
-        border-radius: var(--border-radius);
-        overflow: hidden;
-      }
-
-      .table thead {
-        background-color: #f8f9fa;
-      }
-
-      .btn-action {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.8rem;
-        border-radius: 4px;
-        margin-right: 4px;
-      }
-
-      .btn-edit {
-        background-color: #f39c12;
-        color: white;
-        border: none;
-      }
-      .btn-delete {
-        background-color: #e74c3c;
-        color: white;
-        border: none;
-      }
-
-      .text-primary {
-        color: #ec5b13 !important;
-      }
-
-      /* Consistent input styling */
-      .form-control,
-      .form-select {
-        height: 38px;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-    </style>
+    <link href="../css/styles.css" rel="stylesheet" />
   </head>
   <body>
     <div
@@ -147,7 +27,6 @@
       class="position-fixed top-0 end-0 p-3"
       style="z-index: 1080"
     ></div>
-    <!-- BEGIN: MainHeader -->
     <header>
       <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
@@ -159,27 +38,8 @@
             </div>
             Patitas<span class="text-primary">Felices</span>
           </a>
-          <button
-            class="navbar-toggler"
-            data-bs-target="#navbarNav"
-            data-bs-toggle="collapse"
-            type="button"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#dueños">Dueños</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#mascotas">Mascotas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#historial">Historial</a>
-              </li>
-            </ul>
-            <div class="d-flex ms-3">
+            <div class="d-flex ms-auto">
               <button
                 id="usuariosBtn"
                 class="btn btn-outline-primary me-2 d-none"
@@ -194,27 +54,25 @@
         </div>
       </nav>
     </header>
-    <!-- END: MainHeader -->
-    <!-- BEGIN: MainContent -->
     <main class="container my-5">
-      <!-- BEGIN: SectionDueños -->
+      <!-- DUEÑOS -->
+
       <section
         class="section-container"
         data-purpose="owners-management"
         id="dueños"
       >
         <h2 class="section-title">Dueños</h2>
-        <!-- Form Area -->
         <div class="row mb-4">
           <div class="col-12">
             <p class="text-muted mb-3">Cargar nuevos datos de propietarios</p>
-            <form class="row g-3" id="duenos-form">
+            <form class="row g-3" id="duenos-form" novalidate>
               <div class="col-md-3">
                 <input
                   aria-label="Nombre"
                   class="form-control"
                   id="duenos-nombre"
-                  placeholder="Nombre Completo"
+                  placeholder="Nombre Completo *"
                   type="text"
                   required
                 />
@@ -224,7 +82,7 @@
                   aria-label="Email"
                   class="form-control"
                   id="duenos-email"
-                  placeholder="Correo Electrónico"
+                  placeholder="Correo Electrónico *"
                   type="email"
                   required
                 />
@@ -234,7 +92,7 @@
                   aria-label="Teléfono"
                   class="form-control"
                   id="duenos-telefono"
-                  placeholder="Teléfono"
+                  placeholder="Teléfono *"
                   type="tel"
                   required
                 />
@@ -254,7 +112,6 @@
             </form>
           </div>
         </div>
-        <!-- Table Area -->
         <h3 class="table-title">Tabla para ver la info de Dueños</h3>
         <div class="table-container">
           <table class="table table-hover mb-0">
@@ -272,26 +129,25 @@
           </table>
         </div>
       </section>
-      <!-- END: SectionDueños -->
-      <!-- BEGIN: SectionMascotas -->
+
+      <!-- MASCOTAS -->
+
       <section
         class="section-container"
         data-purpose="pets-management"
         id="mascotas"
       >
         <h2 class="section-title" style="color: #e67e22">Mascotas</h2>
-        <!-- Orange accent from sketch -->
-        <!-- Form Area -->
         <div class="row mb-4">
           <div class="col-12">
             <p class="text-muted mb-3">Registrar nueva mascota</p>
-            <form class="row g-3" id="mascotas-form">
+            <form class="row g-3" id="mascotas-form" novalidate>
               <div class="col-md-2">
                 <input
                   aria-label="Nombre Mascota"
                   class="form-control"
                   id="mascotas-nombre"
-                  placeholder="Nombre Mascota"
+                  placeholder="Nombre Mascota *"
                   type="text"
                   required
                 />
@@ -303,7 +159,7 @@
                   id="mascotas-especie"
                   required
                 >
-                  <option selected="" disabled>Especie</option>
+                  <option selected="" disabled>Especie *</option>
                   <option value="Perro">Perro</option>
                   <option value="Gato">Gato</option>
                   <option value="Otro">Otro</option>
@@ -323,7 +179,7 @@
                   aria-label="Edad"
                   class="form-control"
                   id="mascotas-edad"
-                  placeholder="Edad"
+                  placeholder="Edad *"
                   type="number"
                   required
                 />
@@ -335,7 +191,7 @@
                   id="mascotas-dueno_id"
                   required
                 >
-                  <option selected disabled>Seleccionar Dueño</option>
+                  <option selected disabled>Seleccionar Dueño *</option>
                 </select>
               </div>
               <div class="col-md-2 d-grid">
@@ -344,7 +200,6 @@
             </form>
           </div>
         </div>
-        <!-- Table Area -->
         <h3 class="table-title">Tabla para ver la info de Mascotas</h3>
         <div class="table-container">
           <table class="table table-hover mb-0">
@@ -363,20 +218,19 @@
           </table>
         </div>
       </section>
-      <!-- END: SectionMascotas -->
-      <!-- BEGIN: SectionHistorial -->
+
+      <!-- HISTORIAL CLÍNICO -->
+
       <section
         class="section-container"
         data-purpose="clinical-history-management"
         id="historial"
       >
         <h2 class="section-title" style="color: #e74c3c">Historial Clínico</h2>
-        <!-- Red accent from sketch -->
-        <!-- Form Area -->
         <div class="row mb-4">
           <div class="col-12">
             <p class="text-muted mb-3">Cargar nueva entrada clínica</p>
-            <form class="row g-3" id="historial-form">
+            <form class="row g-3" id="historial-form" novalidate>
               <div class="col-md-2">
                 <input
                   aria-label="Fecha"
@@ -393,7 +247,7 @@
                   id="historial-mascota_id"
                   required
                 >
-                  <option selected="" disabled>Seleccionar Mascota</option>
+                  <option selected="" disabled>Seleccionar Mascota *</option>
                 </select>
               </div>
               <div class="col-md-3">
@@ -401,7 +255,7 @@
                   aria-label="Descripción"
                   class="form-control"
                   id="historial-descripcion"
-                  placeholder="Descripción"
+                  placeholder="Descripción *"
                   type="text"
                   required
                 />
@@ -411,7 +265,7 @@
                   aria-label="Tratamiento"
                   class="form-control"
                   id="historial-tratamiento"
-                  placeholder="Tratamiento"
+                  placeholder="Tratamiento *"
                   type="text"
                   required
                 />
@@ -422,7 +276,6 @@
             </form>
           </div>
         </div>
-        <!-- Table Area -->
         <h3 class="table-title">
           Tabla para ver la info de Historiales Clínicos
         </h3>
@@ -441,18 +294,12 @@
           </table>
         </div>
       </section>
-      <!-- END: SectionHistorial -->
     </main>
-    <!-- END: MainContent -->
-    <!-- BEGIN: Footer -->
     <footer class="text-center py-4 text-muted">
       <div class="container border-top pt-3">
-        <p>© 2023 Patitas Felices - Software de Gestión Veterinaria</p>
+        <p>© 2026 Patitas Felices - Software de Gestión Veterinaria</p>
       </div>
     </footer>
-    <!-- END: Footer -->
-    <!-- Modals for Edit -->
-    <!-- Edit Duenos Modal -->
     <div class="modal fade" id="editDuenosModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -465,10 +312,10 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form id="edit-duenos-form">
+            <form id="edit-duenos-form" novalidate>
               <div class="mb-3">
                 <label for="edit-duenos-nombre" class="form-label"
-                  >Nombre</label
+                  >Nombre *</label
                 >
                 <input
                   type="text"
@@ -478,7 +325,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="edit-duenos-email" class="form-label">Email</label>
+                <label for="edit-duenos-email" class="form-label"
+                  >Email *</label
+                >
                 <input
                   type="email"
                   class="form-control"
@@ -488,7 +337,7 @@
               </div>
               <div class="mb-3">
                 <label for="edit-duenos-telefono" class="form-label"
-                  >Teléfono</label
+                  >Teléfono *</label
                 >
                 <input
                   type="tel"
@@ -528,8 +377,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Edit Mascotas Modal -->
     <div class="modal fade" id="editMascotasModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -542,10 +389,10 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form id="edit-mascotas-form">
+            <form id="edit-mascotas-form" novalidate>
               <div class="mb-3">
                 <label for="edit-mascotas-nombre" class="form-label"
-                  >Nombre</label
+                  >Nombre *</label
                 >
                 <input
                   type="text"
@@ -556,7 +403,7 @@
               </div>
               <div class="mb-3">
                 <label for="edit-mascotas-especie" class="form-label"
-                  >Especie</label
+                  >Especie *</label
                 >
                 <select class="form-select" id="edit-mascotas-especie" required>
                   <option value="Perro">Perro</option>
@@ -573,7 +420,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="edit-mascotas-edad" class="form-label">Edad</label>
+                <label for="edit-mascotas-edad" class="form-label"
+                  >Edad *</label
+                >
                 <input
                   type="number"
                   class="form-control"
@@ -583,7 +432,7 @@
               </div>
               <div class="mb-3">
                 <label for="edit-mascotas-dueno_id" class="form-label"
-                  >Dueño</label
+                  >Dueño *</label
                 >
                 <select
                   class="form-select"
@@ -612,8 +461,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Edit Historial Modal -->
     <div class="modal fade" id="editHistorialModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -626,10 +473,10 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form id="edit-historial-form">
+            <form id="edit-historial-form" novalidate>
               <div class="mb-3">
                 <label for="edit-historial-fecha_consulta" class="form-label"
-                  >Fecha Consulta</label
+                  >Fecha Consulta *</label
                 >
                 <input
                   type="date"
@@ -640,7 +487,7 @@
               </div>
               <div class="mb-3">
                 <label for="edit-historial-mascota_id" class="form-label"
-                  >Mascota</label
+                  >Mascota *</label
                 >
                 <select
                   class="form-select"
@@ -650,7 +497,7 @@
               </div>
               <div class="mb-3">
                 <label for="edit-historial-descripcion" class="form-label"
-                  >Descripción</label
+                  >Descripción *</label
                 >
                 <input
                   type="text"
@@ -661,7 +508,7 @@
               </div>
               <div class="mb-3">
                 <label for="edit-historial-tratamiento" class="form-label"
-                  >Tratamiento</label
+                  >Tratamiento *</label
                 >
                 <input
                   type="text"
@@ -719,42 +566,16 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../utils/utils.js"></script>
     <script>
-      const token = localStorage.getItem("token");
       let pendingDelete = null;
 
-      function showNotice(message, type = "danger") {
-        const container = document.getElementById("notifications");
-        const notification = document.createElement("div");
-        notification.className = `alert alert-${type} alert-dismissible fade show shadow-sm`;
-        notification.role = "alert";
-        notification.innerHTML = `
-          ${message}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        container.appendChild(notification);
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.remove();
-          }
-        }, 3000);
-      }
-
-      async function apiRequest(method, endpoint, data = null) {
-        const options = {
-          method,
-          headers: { Authorization: "Bearer " + token },
-        };
-        if (data) {
-          options.headers["Content-Type"] = "application/json";
-          options.body = JSON.stringify(data);
-        }
-        return fetch(endpoint, options);
-      }
-
       async function submitForm(endpoint, data, successMsg, formId) {
+        const form = document.getElementById(formId);
+        if (form && !validateFormAndNotify(form)) {
+          return;
+        }
         try {
           const response = await apiRequest("POST", endpoint, data);
           if (response.ok) {
@@ -762,7 +583,8 @@
             document.getElementById(formId).reset();
             showNotice(successMsg, "success");
           } else {
-            showNotice("Error al guardar");
+            const message = await getErrorMessage(response, "Error al guardar");
+            showNotice(message);
           }
         } catch (error) {
           showNotice("Error de conexión");
@@ -770,6 +592,10 @@
       }
 
       async function submitEditForm(endpoint, data, successMsg, modalId) {
+        const form = document.querySelector(`#${modalId} form`);
+        if (form && !validateFormAndNotify(form)) {
+          return;
+        }
         try {
           const response = await apiRequest("PATCH", endpoint, data);
           if (response.ok) {
@@ -779,16 +605,15 @@
             ).hide();
             showNotice(successMsg, "success");
           } else {
-            showNotice("Error al guardar");
+            const message = await getErrorMessage(response, "Error al guardar");
+            showNotice(message);
           }
         } catch (error) {
           showNotice("Error de conexión");
         }
       }
 
-      if (!token) {
-        window.location.href = "../index.html";
-      }
+      checkAuth();
 
       fetch("/api/auth/me", {
         headers: { Authorization: "Bearer " + token },
@@ -808,10 +633,7 @@
         window.location.href = "../gestion-usuarios/code.html";
       });
 
-      document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.removeItem("token");
-        window.location.href = "../index.html";
-      });
+      setupLogout();
 
       function populateSelect(
         selectId,
@@ -1095,7 +917,11 @@
               loadData();
               showNotice("Registro eliminado correctamente", "success");
             } else {
-              showNotice("Error al eliminar");
+              const message = await getErrorMessage(
+                response,
+                "Error al eliminar",
+              );
+              showNotice(message);
             }
           } catch (error) {
             showNotice("Error de conexión");

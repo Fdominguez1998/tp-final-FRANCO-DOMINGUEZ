@@ -1,5 +1,5 @@
 import * as historialModel from "../models/historial.model";
-import { HistorialClinico } from "../models/historial.model";
+import { HistorialClinico } from "../types/historial.types";
 
 export const createHistorial = async (historial: HistorialClinico) => {
   return await historialModel.createHistorial(historial);

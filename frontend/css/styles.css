@@ -1,0 +1,129 @@
+:root {
+  --primary-color: #13eca4;
+  --secondary-color: #f8f9fa;
+  --text-dark: #2d3436;
+  --border-radius: 8px;
+  --font-family: "Inter", sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: #f4f7f6;
+  color: var(--text-dark);
+  margin: 0;
+  padding-top: 70px;
+}
+
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: var(--text-dark) !important;
+}
+
+.section-container {
+  background: #ffffff;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  border: 1px solid #edf2f7;
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.table-title {
+  color: #3498db;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  border-radius: var(--border-radius);
+  border: 1px solid #dcdde1;
+  padding: 0.6rem;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(19, 236, 164, 0.25);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #000;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+}
+
+.btn-primary:hover {
+  background-color: #0fd994;
+  border-color: #0fd994;
+  color: #000;
+}
+
+.table-container {
+  border: 1px solid #e1e8ed;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.btn-action {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+
+.btn-edit {
+  background-color: #f39c12;
+  color: white;
+  border: none;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.text-primary {
+  color: #ec5b13 !important;
+}
+
+.form-control,
+.form-select {
+  height: 38px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.badge-role {
+  padding: 0.35em 0.65em;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+/* Estilo para campos requeridos */
+input[required],
+select[required],
+textarea[required] {
+  border-left: 3px solid #e74c3c;
+}

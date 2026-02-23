@@ -1,0 +1,440 @@
+{
+  "info": {
+    "name": "Patitas Felices - API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{adminEmail}}\",\"password\":\"{{adminPassword}}\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var data = pm.response.json();",
+                  "pm.collectionVariables.set('token', data.token || '');",
+                  "pm.test('Token recibido', function () {",
+                  "  pm.expect(data.token).to.be.ok;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Test\",\"apellido\":\"Admin\",\"email\":\"test.admin@example.com\",\"password\":\"Admin123!\",\"role\":\"admin\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var data = pm.response.json();",
+                  "pm.collectionVariables.set('userId', data.id || (data.user && data.user.id) || '');",
+                  "pm.test('Usuario creado', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar usuarios",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users"]
+            }
+          }
+        },
+        {
+          "name": "Obtener usuario",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar usuario",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Test\",\"apellido\":\"Admin2\",\"email\":\"test.admin@example.com\",\"role\":\"admin\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Duenos",
+      "item": [
+        {
+          "name": "Crear dueno",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Juan Perez\",\"email\":\"juan.perez@example.com\",\"telefono\":\"123456\",\"direccion\":\"Calle 123\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/duenos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "duenos"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var data = pm.response.json();",
+                  "pm.collectionVariables.set('duenoId', data.id || '');",
+                  "pm.test('Dueno creado', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar duenos",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/duenos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "duenos"]
+            }
+          }
+        },
+        {
+          "name": "Obtener dueno",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/duenos/{{duenoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "duenos", "{{duenoId}}"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar dueno",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Juan P.\",\"email\":\"juan.perez@example.com\",\"telefono\":\"123456\",\"direccion\":\"Calle 123\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/duenos/{{duenoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "duenos", "{{duenoId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mascotas",
+      "item": [
+        {
+          "name": "Crear mascota",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Firulais\",\"especie\":\"Perro\",\"raza\":\"Mestizo\",\"edad\":3,\"dueno_id\":{{duenoId}}}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/mascotas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mascotas"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var data = pm.response.json();",
+                  "pm.collectionVariables.set('mascotaId', data.id || '');",
+                  "pm.test('Mascota creada', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar mascotas",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/mascotas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mascotas"]
+            }
+          }
+        },
+        {
+          "name": "Obtener mascota",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/mascotas/{{mascotaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mascotas", "{{mascotaId}}"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar mascota",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Firulais\",\"especie\":\"Perro\",\"raza\":\"Mestizo\",\"edad\":4,\"dueno_id\":{{duenoId}}}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/mascotas/{{mascotaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mascotas", "{{mascotaId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Historial",
+      "item": [
+        {
+          "name": "Crear historial",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"mascota_id\":{{mascotaId}},\"descripcion\":\"Consulta general\",\"tratamiento\":\"Vacuna\",\"fecha_consulta\":\"2026-02-23\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/historial",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historial"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var data = pm.response.json();",
+                  "pm.collectionVariables.set('historialId', data.id || '');",
+                  "pm.test('Historial creado', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar historial",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/historial",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historial"]
+            }
+          }
+        },
+        {
+          "name": "Obtener historial",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/historial/{{historialId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historial", "{{historialId}}"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar historial",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"mascota_id\":{{mascotaId}},\"descripcion\":\"Control\",\"tratamiento\":\"Vacuna\",\"fecha_consulta\":\"2026-02-23\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/historial/{{historialId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historial", "{{historialId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deletes",
+      "item": [
+        {
+          "name": "Eliminar historial",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/historial/{{historialId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historial", "{{historialId}}"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar mascota",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/mascotas/{{mascotaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mascotas", "{{mascotaId}}"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar dueno",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/duenos/{{duenoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "duenos", "{{duenoId}}"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "adminEmail", "value": "admin@patitasfelices.com" },
+    { "key": "adminPassword", "value": "admin123" },
+    { "key": "token", "value": "" },
+    { "key": "userId", "value": "" },
+    { "key": "duenoId", "value": "" },
+    { "key": "mascotaId", "value": "" },
+    { "key": "historialId", "value": "" }
+  ]
+}
