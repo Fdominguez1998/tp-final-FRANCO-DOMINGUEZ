@@ -58,7 +58,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"nombre\":\"Test\",\"apellido\":\"Admin\",\"email\":\"test.admin@example.com\",\"password\":\"Admin123!\",\"role\":\"admin\"}"
+              "raw": "{\"nombre\":\"Test\",\"apellido\":\"Admin\",\"email\":\"{{createdUserEmail}}\",\"password\":\"Admin123!\",\"role\":\"admin\"}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
@@ -68,12 +68,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const createdUserEmail = `test.admin.${Date.now()}@example.com`;",
+                  "pm.collectionVariables.set('createdUserEmail', createdUserEmail);"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "var data = pm.response.json();",
-                  "pm.collectionVariables.set('userId', data.id || (data.user && data.user.id) || '');",
                   "pm.test('Usuario creado', function () {",
                   "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
                   "});"
@@ -92,7 +100,24 @@
               "host": ["{{baseUrl}}"],
               "path": ["api", "users"]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const users = pm.response.json();",
+                  "const createdUserEmail = pm.collectionVariables.get('createdUserEmail');",
+                  "const createdUser = Array.isArray(users) ? users.find((u) => u.email === createdUserEmail) : null;",
+                  "pm.test('Usuario creado presente en listado', function () {",
+                  "  pm.expect(createdUser).to.be.ok;",
+                  "});",
+                  "pm.collectionVariables.set('userId', createdUser ? String(createdUser.id) : '');"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Obtener usuario",
@@ -116,7 +141,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"nombre\":\"Test\",\"apellido\":\"Admin2\",\"email\":\"test.admin@example.com\",\"role\":\"admin\"}"
+              "raw": "{\"nombre\":\"Test\",\"apellido\":\"Admin2\",\"email\":\"{{createdUserEmail}}\",\"role\":\"admin\"}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/users/{{userId}}",
@@ -432,6 +457,7 @@
     { "key": "adminEmail", "value": "admin@patitasfelices.com" },
     { "key": "adminPassword", "value": "admin123" },
     { "key": "token", "value": "" },
+    { "key": "createdUserEmail", "value": "" },
     { "key": "userId", "value": "" },
     { "key": "duenoId", "value": "" },
     { "key": "mascotaId", "value": "" },

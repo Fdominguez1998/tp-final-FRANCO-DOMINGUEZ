@@ -1,11 +1,19 @@
 import { Router } from "express";
 import { createUser, login, getMe } from "../controllers/users.controller";
-import { authenticateToken } from "../middlewares/auth.middleware";
+import {
+  authenticateToken,
+  authorizeRoles,
+} from "../middlewares/auth.middleware";
 
 const router = Router();
 
-// Registro público
-router.post("/register", createUser);
+// Registro solo para admin autenticado
+router.post(
+  "/register",
+  authenticateToken,
+  authorizeRoles("admin"),
+  createUser,
+);
 
 // Login público
 router.post("/login", login);

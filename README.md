@@ -147,11 +147,11 @@ El dump [database.sql](database.sql) ya trae usuarios cargados.
 1. **Login** - `http://localhost:3000/index.html`
    - Autenticación de usuarios
 
-2. **Dashboard Principal** - `/dashboard-principal/code.html`
+2. **Dashboard Principal** - `/dashboard-principal`
    - CRUD de Dueños, Mascotas e Historial Clínico
    - Acceso: admin y veterinario
 
-3. **Gestión de Usuarios** - `/gestion-usuarios/code.html`
+3. **Gestión de Usuarios** - `/gestion-usuarios`
    - CRUD de usuarios del sistema
    - Acceso: solo admin
 
@@ -162,6 +162,14 @@ El dump [database.sql](database.sql) ya trae usuarios cargados.
 #### POST `/api/auth/register`
 
 Registrar nuevo usuario (requiere estar autenticado como admin).
+
+**Headers:**
+
+```
+Authorization: Bearer <token>
+```
+
+_Nota: el token debe pertenecer a un usuario con rol `admin`._
 
 **Body:**
 
@@ -179,7 +187,7 @@ Registrar nuevo usuario (requiere estar autenticado como admin).
 
 ```json
 {
-  "message": "Usuario registrado exitosamente"
+  "message": "Usuario creado correctamente"
 }
 ```
 
@@ -200,13 +208,10 @@ Iniciar sesión y obtener token JWT.
 
 ```json
 {
+  "message": "Login exitoso",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "user": {
-    "id": 1,
-    "nombre": "Admin",
-    "apellido": "Sistema",
-    "email": "admin@patitasfelices.com",
-    "role": "admin"
+    "email": "admin@patitasfelices.com"
   }
 }
 ```

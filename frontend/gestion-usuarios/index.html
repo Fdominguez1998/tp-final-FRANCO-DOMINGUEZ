@@ -284,7 +284,7 @@
           if (data.role !== "admin") {
             showNotice("Acceso denegado: Solo administradores");
             setTimeout(() => {
-              window.location.href = "../dashboard-principal/code.html";
+              window.location.href = "/dashboard-principal";
             }, 2000);
           }
         })
@@ -296,7 +296,7 @@
       document
         .getElementById("backToDashboardBtn")
         .addEventListener("click", () => {
-          window.location.href = "../dashboard-principal/code.html";
+          window.location.href = "/dashboard-principal";
         });
 
       setupLogout();
